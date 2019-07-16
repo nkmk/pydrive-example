@@ -76,9 +76,7 @@ pprint.pprint(d_id_parents_id)
 #  '1DX1YFUdbSAeIvuXVLoosAKY2eX27Q4Y1': '0AAeKIFCqYN07Uk9PVA',
 #  '1UaNdnbqCKe2ALtZp6hirvCgZl7OVpTI9': '0AAeKIFCqYN07Uk9PVA'}
 
-root_id = drive.ListFile({'q': '"root" in parents'}).GetList()[0]['parents'][0]['id']
-
-def get_parents_path(current_id, sep='/'):
+def get_parents_path(current_id, root_id, sep='/'):
     l = []
     while current_id != root_id:
         if current_id not in d_id_title.keys():
@@ -87,7 +85,9 @@ def get_parents_path(current_id, sep='/'):
         current_id = d_id_parents_id[current_id]
     return sep.join(reversed(l))
 
-d_id_path = {i: get_parents_path(i) for i in df_folder['id']}
+root_id = drive.ListFile({'q': '"root" in parents'}).GetList()[0]['parents'][0]['id']
+
+d_id_path = {i: get_parents_path(i, root_id) for i in df_folder['id']}
 d_id_path[root_id] = ''
 
 pprint.pprint(d_id_path)
