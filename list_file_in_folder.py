@@ -25,7 +25,7 @@ for f in file_list:
 # file11  	 15sy12U3d845pXjLaEWww4VLO9Vs7C4J9
 
 def get_list_recursively(parent_id, l=None):
-    if not l:
+    if l is None:
         l = []
 
     file_list = drive.ListFile({'q': '"{}" in parents and trashed = false'.format(parent_id)}).GetList()
@@ -45,7 +45,7 @@ for f in get_list_recursively(folder_id):
 # file111  	 1bfc7jlDobxuoyZeF8CDyXlN66zl84Ech
 
 def get_list_file_recursively(parent_id, l=None):
-    if not l:
+    if l is None:
         l = []
 
     file_list = drive.ListFile({'q': '"{}" in parents and trashed = false'.format(parent_id)}).GetList()
